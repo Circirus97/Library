@@ -1,12 +1,10 @@
 package com.riwi.library.infraestructure.mappers;
 
 import com.riwi.library.api.dto.request.UserRequest;
-import com.riwi.library.api.dto.response.BookResponse;
 import com.riwi.library.api.dto.response.LoanResponse;
 import com.riwi.library.api.dto.response.ReservationResponse;
 import com.riwi.library.api.dto.response.UserAllInfoResponse;
 import com.riwi.library.api.dto.response.UserResponse;
-import com.riwi.library.domain.entities.Book;
 import com.riwi.library.domain.entities.Loan;
 import com.riwi.library.domain.entities.Reservation;
 import com.riwi.library.domain.entities.User;
@@ -17,8 +15,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-24T09:36:47-0500",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
+    date = "2024-06-24T12:35:11-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
@@ -76,23 +74,6 @@ public class UserMapperImpl implements UserMapper {
         return userResponse.build();
     }
 
-    protected BookResponse bookToBookResponse(Book book) {
-        if ( book == null ) {
-            return null;
-        }
-
-        BookResponse.BookResponseBuilder bookResponse = BookResponse.builder();
-
-        bookResponse.id( book.getId() );
-        bookResponse.title( book.getTitle() );
-        bookResponse.author( book.getAuthor() );
-        bookResponse.publicationYear( book.getPublicationYear() );
-        bookResponse.genre( book.getGenre() );
-        bookResponse.isbn( book.getIsbn() );
-
-        return bookResponse.build();
-    }
-
     protected LoanResponse loanToLoanResponse(Loan loan) {
         if ( loan == null ) {
             return null;
@@ -106,8 +87,6 @@ public class UserMapperImpl implements UserMapper {
         if ( loan.getStatus() != null ) {
             loanResponse.status( loan.getStatus().name() );
         }
-        loanResponse.user( userToUserResponse( loan.getUser() ) );
-        loanResponse.book( bookToBookResponse( loan.getBook() ) );
 
         return loanResponse.build();
     }

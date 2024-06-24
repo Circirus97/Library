@@ -2,6 +2,7 @@ com/riwi/library/api/dto/request/LoanRequest.class
 com/riwi/library/domain/entities/Book.class
 com/riwi/library/api/dto/response/BookResponse$BookResponseBuilder.class
 com/riwi/library/infraestructure/service/ReservationServices.class
+com/riwi/library/api/dto/request/LoanUpdateRequest$LoanUpdateRequestBuilder.class
 com/riwi/library/domain/entities/Loan.class
 com/riwi/library/api/dto/response/UserAllInfoResponse$UserAllInfoResponseBuilder.class
 com/riwi/library/LibraryApplication.class
@@ -45,6 +46,7 @@ com/riwi/library/api/dto/errors/BaseErrorResponse$BaseErrorResponseBuilderImpl.c
 com/riwi/library/api/dto/response/LoanAllInfoResponse$LoanAllInfoResponseBuilder.class
 com/riwi/library/infraestructure/mappers/LoanMapper.class
 com/riwi/library/infraestructure/abstract_service/ILoanService.class
+com/riwi/library/api/dto/request/LoanUpdateRequest.class
 com/riwi/library/api/dto/response/UserResponse.class
 com/riwi/library/domain/entities/Loan$LoanBuilder.class
 com/riwi/library/infraestructure/mappers/ReservationMapper.class
