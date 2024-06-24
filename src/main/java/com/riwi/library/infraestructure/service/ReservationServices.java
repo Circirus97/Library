@@ -3,8 +3,6 @@ package com.riwi.library.infraestructure.service;
 import com.riwi.library.api.dto.request.ReservationRequest;
 import com.riwi.library.api.dto.request.ReservationUpdateRequest;
 import com.riwi.library.api.dto.response.ReservationAllInfoResponse;
-import com.riwi.library.api.dto.response.ReservationResponse;
-import com.riwi.library.api.dto.response.UserResponse;
 import com.riwi.library.domain.entities.Book;
 import com.riwi.library.domain.entities.Reservation;
 import com.riwi.library.domain.entities.User;
@@ -123,12 +121,6 @@ public class ReservationServices implements IReservationService {
     }
 
     private List<ReservationAllInfoResponse> entityToresponseList(List<Reservation> reservations){
-        return reservations.stream()
-                .map(reservationMapper::reservationToReservationAllInfoResponse)
-                .toList();
-    }
-
-    private List<ReservationAllInfoResponse> entityToresponseListBooks(List<Reservation> reservations){
         return reservations.stream()
                 .map(reservationMapper::reservationToReservationAllInfoResponse)
                 .toList();

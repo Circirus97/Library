@@ -1,9 +1,13 @@
 package com.riwi.library.infraestructure.mappers;
 
-import com.riwi.library.api.dto.request.UserRequest;
+import com.riwi.library.api.dto.request.BookRequest;
+import com.riwi.library.api.dto.response.BookAllInfoResponse;
+import com.riwi.library.api.dto.response.BookResponse;
+import com.riwi.library.api.dto.response.LoanResponse;
 import com.riwi.library.api.dto.response.ReservationResponse;
-import com.riwi.library.api.dto.response.UserAllInfoResponse;
 import com.riwi.library.api.dto.response.UserResponse;
+import com.riwi.library.domain.entities.Book;
+import com.riwi.library.domain.entities.Loan;
 import com.riwi.library.domain.entities.Reservation;
 import com.riwi.library.domain.entities.User;
 import java.util.ArrayList;
@@ -13,62 +17,65 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-23T19:45:00-0500",
+    date = "2024-06-24T09:36:47-0500",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
 public class BookMapperImpl implements BookMapper {
 
     @Override
-    public User userRequestToUser(UserRequest request) {
+    public Book bookRequestToBook(BookRequest request) {
         if ( request == null ) {
             return null;
         }
 
-        User user = new User();
+        Book.BookBuilder book = Book.builder();
 
-        user.setUsername( request.getUsername() );
-        user.setPassword( request.getPassword() );
-        user.setEmail( request.getEmail() );
-        user.setFullName( request.getFullName() );
-        user.setRole( request.getRole() );
+        book.title( request.getTitle() );
+        book.author( request.getAuthor() );
+        book.publicationYear( request.getPublicationYear() );
+        book.genre( request.getGenre() );
+        book.isbn( request.getIsbn() );
 
-        return user;
+        return book.build();
     }
 
     @Override
-    public UserAllInfoResponse userToUserAllInfoResponse(User response) {
-        if ( response == null ) {
+    public BookAllInfoResponse bookToBookAllInfoResponse(Book book) {
+        if ( book == null ) {
             return null;
         }
 
-        UserAllInfoResponse.UserAllInfoResponseBuilder userAllInfoResponse = UserAllInfoResponse.builder();
+        BookAllInfoResponse.BookAllInfoResponseBuilder bookAllInfoResponse = BookAllInfoResponse.builder();
 
-        userAllInfoResponse.id( response.getId() );
-        userAllInfoResponse.username( response.getUsername() );
-        userAllInfoResponse.email( response.getEmail() );
-        userAllInfoResponse.fullName( response.getFullName() );
-        userAllInfoResponse.role( response.getRole() );
-        userAllInfoResponse.reservationList( reservationListToReservationResponseList( response.getReservationList() ) );
+        bookAllInfoResponse.id( book.getId() );
+        bookAllInfoResponse.title( book.getTitle() );
+        bookAllInfoResponse.author( book.getAuthor() );
+        bookAllInfoResponse.publicationYear( book.getPublicationYear() );
+        bookAllInfoResponse.genre( book.getGenre() );
+        bookAllInfoResponse.isbn( book.getIsbn() );
+        bookAllInfoResponse.reservationList( reservationListToReservationResponseList( book.getReservationList() ) );
+        bookAllInfoResponse.loans( loanListToLoanResponseList( book.getLoans() ) );
 
-        return userAllInfoResponse.build();
+        return bookAllInfoResponse.build();
     }
 
     @Override
-    public UserResponse userToUserResponse(User user) {
-        if ( user == null ) {
+    public BookResponse bookToBookResponse(Book book) {
+        if ( book == null ) {
             return null;
         }
 
-        UserResponse.UserResponseBuilder userResponse = UserResponse.builder();
+        BookResponse.BookResponseBuilder bookResponse = BookResponse.builder();
 
-        userResponse.id( user.getId() );
-        userResponse.username( user.getUsername() );
-        userResponse.email( user.getEmail() );
-        userResponse.fullName( user.getFullName() );
-        userResponse.role( user.getRole() );
+        bookResponse.id( book.getId() );
+        bookResponse.title( book.getTitle() );
+        bookResponse.author( book.getAuthor() );
+        bookResponse.publicationYear( book.getPublicationYear() );
+        bookResponse.genre( book.getGenre() );
+        bookResponse.isbn( book.getIsbn() );
 
-        return userResponse.build();
+        return bookResponse.build();
     }
 
     protected ReservationResponse reservationToReservationResponse(Reservation reservation) {
@@ -95,6 +102,54 @@ public class BookMapperImpl implements BookMapper {
         List<ReservationResponse> list1 = new ArrayList<ReservationResponse>( list.size() );
         for ( Reservation reservation : list ) {
             list1.add( reservationToReservationResponse( reservation ) );
+        }
+
+        return list1;
+    }
+
+    protected UserResponse userToUserResponse(User user) {
+        if ( user == null ) {
+            return null;
+        }
+
+        UserResponse.UserResponseBuilder userResponse = UserResponse.builder();
+
+        userResponse.id( user.getId() );
+        userResponse.username( user.getUsername() );
+        userResponse.email( user.getEmail() );
+        userResponse.fullName( user.getFullName() );
+        userResponse.role( user.getRole() );
+
+        return userResponse.build();
+    }
+
+    protected LoanResponse loanToLoanResponse(Loan loan) {
+        if ( loan == null ) {
+            return null;
+        }
+
+        LoanResponse.LoanResponseBuilder loanResponse = LoanResponse.builder();
+
+        loanResponse.id( loan.getId() );
+        loanResponse.loanDate( loan.getLoanDate() );
+        loanResponse.returnDate( loan.getReturnDate() );
+        if ( loan.getStatus() != null ) {
+            loanResponse.status( loan.getStatus().name() );
+        }
+        loanResponse.user( userToUserResponse( loan.getUser() ) );
+        loanResponse.book( bookToBookResponse( loan.getBook() ) );
+
+        return loanResponse.build();
+    }
+
+    protected List<LoanResponse> loanListToLoanResponseList(List<Loan> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<LoanResponse> list1 = new ArrayList<LoanResponse>( list.size() );
+        for ( Loan loan : list ) {
+            list1.add( loanToLoanResponse( loan ) );
         }
 
         return list1;

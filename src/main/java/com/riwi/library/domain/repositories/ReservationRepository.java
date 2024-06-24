@@ -1,7 +1,6 @@
 package com.riwi.library.domain.repositories;
 
 import com.riwi.library.domain.entities.Reservation;
-import com.riwi.library.domain.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

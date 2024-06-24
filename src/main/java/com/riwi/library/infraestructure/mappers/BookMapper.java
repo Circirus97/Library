@@ -1,9 +1,9 @@
 package com.riwi.library.infraestructure.mappers;
 
-import com.riwi.library.api.dto.request.UserRequest;
-import com.riwi.library.api.dto.response.UserAllInfoResponse;
-import com.riwi.library.api.dto.response.UserResponse;
-import com.riwi.library.domain.entities.User;
+import com.riwi.library.api.dto.request.BookRequest;
+import com.riwi.library.api.dto.response.BookAllInfoResponse;
+import com.riwi.library.api.dto.response.BookResponse;
+import com.riwi.library.domain.entities.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -13,11 +13,10 @@ public interface BookMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "loans", ignore = true)
     @Mapping(target = "reservationList", ignore = true)
-    User userRequestToUser(UserRequest request);
+    Book bookRequestToBook(BookRequest request);
 
+    BookAllInfoResponse bookToBookAllInfoResponse (Book book);
 
-    UserAllInfoResponse userToUserAllInfoResponse(User response);
-
-    UserResponse userToUserResponse(User user);
+    BookResponse bookToBookResponse(Book book);
 
 }
