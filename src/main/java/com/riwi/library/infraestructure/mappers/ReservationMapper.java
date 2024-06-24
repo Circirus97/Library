@@ -1,23 +1,27 @@
 package com.riwi.library.infraestructure.mappers;
 
-import com.riwi.library.api.dto.request.UserRequest;
-import com.riwi.library.api.dto.response.UserAllInfoResponse;
-import com.riwi.library.api.dto.response.UserResponse;
-import com.riwi.library.domain.entities.User;
+import com.riwi.library.api.dto.request.ReservationRequest;
+import com.riwi.library.api.dto.request.ReservationUpdateRequest;
+import com.riwi.library.api.dto.response.ReservationAllInfoResponse;
+import com.riwi.library.api.dto.response.ReservationResponse;
+import com.riwi.library.domain.entities.Reservation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ReservationMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "loans", ignore = true)
-    @Mapping(target = "reservationList", ignore = true)
-    User userRequestToUser(UserRequest request);
+    Reservation reservationRequestToReservation(ReservationRequest request);
 
+    @Mapping(target = "id", ignore = true)
+    Reservation reservationUpdateRequestToReservation(ReservationUpdateRequest request);
 
-    UserAllInfoResponse userToUserAllInfoResponse(User response);
+    ReservationAllInfoResponse reservationToReservationAllInfoResponse(Reservation reservation);
 
-    UserResponse userToUserResponse(User user);
+    ReservationResponse reservationToReservationResponse(Reservation reservation);
+
 
 }

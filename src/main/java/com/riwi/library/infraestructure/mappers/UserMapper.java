@@ -6,7 +6,6 @@ import com.riwi.library.api.dto.response.UserResponse;
 import com.riwi.library.domain.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -16,7 +15,7 @@ public interface UserMapper {
     @Mapping(target = "reservationList", ignore = true)
     User userRequestToUser(UserRequest request);
 
-
+    @Mapping(target = "loanList", source = "loans")
     UserAllInfoResponse userToUserAllInfoResponse(User response);
 
     UserResponse userToUserResponse(User user);

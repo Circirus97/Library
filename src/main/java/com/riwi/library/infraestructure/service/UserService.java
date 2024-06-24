@@ -11,9 +11,6 @@ import com.riwi.library.utils.exception.BadRequestException;
 import com.riwi.library.utils.message.ErrorMessages;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -23,10 +20,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserService implements IUserService {
 
-    @Autowired
     private final UserRepository userRepository;
 
-    @Autowired
     private final UserMapper userMapper;
 
 
@@ -37,15 +32,6 @@ public class UserService implements IUserService {
         return userMapper.userToUserResponse(this.userRepository.save(user));
     }
 
-    @Override
-    public UserResponse get(Long id) {
-
-        User userGet = this.userRepository.findById(id)
-                .orElseThrow(()-> new BadRequestException(ErrorMessages.IdNotFound("User")));
-
-        return userMapper.userToUserResponse(userGet);
-
-    }
 
     @Override
     public Page<UserResponse> getAll(int page, int size) {
@@ -77,7 +63,7 @@ public class UserService implements IUserService {
         User user = this.userRepository.findById(id)
                 .orElseThrow(()-> new BadRequestException(ErrorMessages.IdNotFound("User")));
 
-        this.userRepository.deleteById(id);
+        this.userRepository.deleteById(user.getId());
     }
 
     @Override

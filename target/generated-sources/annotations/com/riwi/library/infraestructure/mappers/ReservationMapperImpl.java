@@ -1,77 +1,74 @@
 package com.riwi.library.infraestructure.mappers;
 
-import com.riwi.library.api.dto.request.UserRequest;
+import com.riwi.library.api.dto.request.ReservationRequest;
+import com.riwi.library.api.dto.request.ReservationUpdateRequest;
+import com.riwi.library.api.dto.response.BookResponse;
+import com.riwi.library.api.dto.response.ReservationAllInfoResponse;
 import com.riwi.library.api.dto.response.ReservationResponse;
-import com.riwi.library.api.dto.response.UserAllInfoResponse;
 import com.riwi.library.api.dto.response.UserResponse;
+import com.riwi.library.domain.entities.Book;
 import com.riwi.library.domain.entities.Reservation;
 import com.riwi.library.domain.entities.User;
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-21T12:24:21-0500",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.38.0.v20240524-2033, environment: Java 17.0.11 (Eclipse Adoptium)"
+    date = "2024-06-23T19:53:41-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
 public class ReservationMapperImpl implements ReservationMapper {
 
     @Override
-    public User userRequestToUser(UserRequest request) {
+    public Reservation reservationRequestToReservation(ReservationRequest request) {
         if ( request == null ) {
             return null;
         }
 
-        User user = new User();
+        Reservation reservation = new Reservation();
 
-        user.setEmail( request.getEmail() );
-        user.setFullName( request.getFullName() );
-        user.setPassword( request.getPassword() );
-        user.setRole( request.getRole() );
-        user.setUsername( request.getUsername() );
+        reservation.setReservationDate( request.getReservationDate() );
+        reservation.setStatus( request.getStatus() );
 
-        return user;
+        return reservation;
     }
 
     @Override
-    public UserAllInfoResponse userToUserAllInfoResponse(User response) {
-        if ( response == null ) {
+    public Reservation reservationUpdateRequestToReservation(ReservationUpdateRequest request) {
+        if ( request == null ) {
             return null;
         }
 
-        UserAllInfoResponse.UserAllInfoResponseBuilder userAllInfoResponse = UserAllInfoResponse.builder();
+        Reservation reservation = new Reservation();
 
-        userAllInfoResponse.email( response.getEmail() );
-        userAllInfoResponse.fullName( response.getFullName() );
-        userAllInfoResponse.id( response.getId() );
-        userAllInfoResponse.reservationList( reservationListToReservationResponseList( response.getReservationList() ) );
-        userAllInfoResponse.role( response.getRole() );
-        userAllInfoResponse.username( response.getUsername() );
+        reservation.setReservationDate( request.getReservationDate() );
+        reservation.setStatus( request.getStatus() );
 
-        return userAllInfoResponse.build();
+        return reservation;
     }
 
     @Override
-    public UserResponse userToUserResponse(User user) {
-        if ( user == null ) {
+    public ReservationAllInfoResponse reservationToReservationAllInfoResponse(Reservation reservation) {
+        if ( reservation == null ) {
             return null;
         }
 
-        UserResponse.UserResponseBuilder userResponse = UserResponse.builder();
+        ReservationAllInfoResponse.ReservationAllInfoResponseBuilder reservationAllInfoResponse = ReservationAllInfoResponse.builder();
 
-        userResponse.email( user.getEmail() );
-        userResponse.fullName( user.getFullName() );
-        userResponse.id( user.getId() );
-        userResponse.role( user.getRole() );
-        userResponse.username( user.getUsername() );
+        reservationAllInfoResponse.id( reservation.getId() );
+        reservationAllInfoResponse.reservationDate( reservation.getReservationDate() );
+        if ( reservation.getStatus() != null ) {
+            reservationAllInfoResponse.status( reservation.getStatus().name() );
+        }
+        reservationAllInfoResponse.user( userToUserResponse( reservation.getUser() ) );
+        reservationAllInfoResponse.book( bookToBookResponse( reservation.getBook() ) );
 
-        return userResponse.build();
+        return reservationAllInfoResponse.build();
     }
 
-    protected ReservationResponse reservationToReservationResponse(Reservation reservation) {
+    @Override
+    public ReservationResponse reservationToReservationResponse(Reservation reservation) {
         if ( reservation == null ) {
             return null;
         }
@@ -87,16 +84,36 @@ public class ReservationMapperImpl implements ReservationMapper {
         return reservationResponse.build();
     }
 
-    protected List<ReservationResponse> reservationListToReservationResponseList(List<Reservation> list) {
-        if ( list == null ) {
+    protected UserResponse userToUserResponse(User user) {
+        if ( user == null ) {
             return null;
         }
 
-        List<ReservationResponse> list1 = new ArrayList<ReservationResponse>( list.size() );
-        for ( Reservation reservation : list ) {
-            list1.add( reservationToReservationResponse( reservation ) );
+        UserResponse.UserResponseBuilder userResponse = UserResponse.builder();
+
+        userResponse.id( user.getId() );
+        userResponse.username( user.getUsername() );
+        userResponse.email( user.getEmail() );
+        userResponse.fullName( user.getFullName() );
+        userResponse.role( user.getRole() );
+
+        return userResponse.build();
+    }
+
+    protected BookResponse bookToBookResponse(Book book) {
+        if ( book == null ) {
+            return null;
         }
 
-        return list1;
+        BookResponse.BookResponseBuilder bookResponse = BookResponse.builder();
+
+        bookResponse.id( book.getId() );
+        bookResponse.title( book.getTitle() );
+        bookResponse.author( book.getAuthor() );
+        bookResponse.publicationYear( book.getPublicationYear() );
+        bookResponse.genre( book.getGenre() );
+        bookResponse.isbn( book.getIsbn() );
+
+        return bookResponse.build();
     }
 }

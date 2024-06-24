@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-21T12:24:21-0500",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.38.0.v20240524-2033, environment: Java 17.0.11 (Eclipse Adoptium)"
+    date = "2024-06-23T19:45:01-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
 public class LoanMapperImpl implements LoanMapper {
@@ -27,11 +27,11 @@ public class LoanMapperImpl implements LoanMapper {
 
         User user = new User();
 
+        user.setUsername( request.getUsername() );
+        user.setPassword( request.getPassword() );
         user.setEmail( request.getEmail() );
         user.setFullName( request.getFullName() );
-        user.setPassword( request.getPassword() );
         user.setRole( request.getRole() );
-        user.setUsername( request.getUsername() );
 
         return user;
     }
@@ -44,12 +44,12 @@ public class LoanMapperImpl implements LoanMapper {
 
         UserAllInfoResponse.UserAllInfoResponseBuilder userAllInfoResponse = UserAllInfoResponse.builder();
 
+        userAllInfoResponse.id( response.getId() );
+        userAllInfoResponse.username( response.getUsername() );
         userAllInfoResponse.email( response.getEmail() );
         userAllInfoResponse.fullName( response.getFullName() );
-        userAllInfoResponse.id( response.getId() );
-        userAllInfoResponse.reservationList( reservationListToReservationResponseList( response.getReservationList() ) );
         userAllInfoResponse.role( response.getRole() );
-        userAllInfoResponse.username( response.getUsername() );
+        userAllInfoResponse.reservationList( reservationListToReservationResponseList( response.getReservationList() ) );
 
         return userAllInfoResponse.build();
     }
@@ -62,11 +62,11 @@ public class LoanMapperImpl implements LoanMapper {
 
         UserResponse.UserResponseBuilder userResponse = UserResponse.builder();
 
+        userResponse.id( user.getId() );
+        userResponse.username( user.getUsername() );
         userResponse.email( user.getEmail() );
         userResponse.fullName( user.getFullName() );
-        userResponse.id( user.getId() );
         userResponse.role( user.getRole() );
-        userResponse.username( user.getUsername() );
 
         return userResponse.build();
     }

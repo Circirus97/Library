@@ -6,8 +6,6 @@ public interface CrudService <RQ, RS, ID> {
 
     RS create(RQ request);
 
-    RS get(ID id);
-
     Page<RS> getAll(int page, int size);
 
     RS update(RQ request, ID id);

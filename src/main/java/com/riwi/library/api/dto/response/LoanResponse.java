@@ -20,4 +20,8 @@ public class LoanResponse {
     private LocalDate returnDate;
 
     private String status;
+
+    private UserResponse user;
+
+    private BookResponse book;
 }

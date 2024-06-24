@@ -3,7 +3,6 @@ package com.riwi.library.domain.entities;
 import com.riwi.library.utils.enums.StatusReservation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,6 @@ import java.time.LocalDate;
 
 @Entity(name = "reservations")
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reservation {
@@ -24,6 +22,7 @@ public class Reservation {
     private LocalDate reservationDate;
 
     @Column(length = 20, nullable = false)
+    @Enumerated(EnumType.STRING)
     private StatusReservation status;
 
     @ManyToOne(fetch = FetchType.LAZY)
