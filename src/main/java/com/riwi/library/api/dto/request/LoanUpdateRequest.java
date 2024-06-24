@@ -2,6 +2,7 @@ package com.riwi.library.api.dto.request;
 
 import com.riwi.library.utils.enums.StatusLoan;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoanRequest {
+public class LoanUpdateRequest {
 
     @Future(message = "The date is invalid, it must be greater than the current date.")
     private LocalDate loanDate;
@@ -21,7 +22,6 @@ public class LoanRequest {
     private LocalDate returnDate;
 
     private StatusLoan status;
-    private Long userId;
-    private Long bookId;
+
 
 }

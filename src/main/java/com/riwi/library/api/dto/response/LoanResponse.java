@@ -21,7 +21,4 @@ public class LoanResponse {
 
     private String status;
 
-    private UserResponse user;
-
-    private BookResponse book;
 }

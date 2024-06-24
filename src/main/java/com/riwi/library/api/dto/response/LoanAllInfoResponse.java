@@ -21,4 +21,8 @@ public class LoanAllInfoResponse {
 
     private String status;
 
+    private UserResponse user;
+
+    private BookResponse book;
+
 }
